@@ -25,6 +25,9 @@ import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.view.ArrowRefreshHeader;
 import com.github.jdsjlzx.view.LoadingFooter;
 
+/**
+ * Created by Mr Jian on 2018/4/2.
+ */
 public class HeaderZoomRecyclerView extends RecyclerView {
 
   /** * **/
