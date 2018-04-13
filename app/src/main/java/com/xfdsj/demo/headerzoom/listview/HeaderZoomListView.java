@@ -19,7 +19,8 @@ public class HeaderZoomListView extends ListView {
   private ImageView mHeaderView; // 头图
   private int mHeaderViewHeight; // 头图高度
   private ImageView mRefreshView; // 旋转刷新的图片
-  private float mRefreshTranslationY; // 刷新图片下拉最大移动距离
+  private float mRefreshHideTranslationY; // 刷新图片上移的最大距离
+  private float mRefreshShowTranslationY; // 刷新图片下拉的最大移动距离
   private float mRotateAngle; // 旋转角度
 
   public HeaderZoomListView(Context context, AttributeSet attrs) {
@@ -30,8 +31,9 @@ public class HeaderZoomListView extends ListView {
     super.onWindowFocusChanged(hasWindowFocus);
     if (hasWindowFocus) {
       this.mHeaderViewHeight = mHeaderView.getHeight();// 获取图片原始高度
-      mRefreshTranslationY = mRefreshView.getHeight() + 60;
-      mRefreshView.setTranslationY(-mRefreshTranslationY);
+      mRefreshHideTranslationY = -mRefreshView.getHeight() - 20;
+      mRefreshShowTranslationY = mRefreshView.getHeight();
+      mRefreshView.setTranslationY(mRefreshHideTranslationY);
     }
   }
 
@@ -81,13 +83,16 @@ public class HeaderZoomListView extends ListView {
     return super.onTouchEvent(ev);
   }
 
+  /**
+   * refreshView在刷新区间内相对位移并跟随位移速度旋转
+   */
   private void refreshTranslation(int currentHeight, float offSet) {
-    if ((currentHeight - mRefreshTranslationY) / 5 < mRefreshTranslationY) { // 判断是否在非刷新区间
-      float translationY = mRefreshView.getTranslationY() - offSet / 2;
-      if (translationY > mRefreshTranslationY) {
-        translationY = mRefreshTranslationY;
-      } else if (translationY < -mRefreshTranslationY) {
-        translationY = -mRefreshTranslationY;
+    if ((currentHeight - mHeaderViewHeight) / 2 < mRefreshShowTranslationY - mRefreshHideTranslationY) { // 判断是否在非刷新区间
+      float translationY = mRefreshView.getTranslationY() - offSet / 2; // 布局高度增加offset 相当于距离上边距offSet / 2
+      if (translationY > mRefreshShowTranslationY) {
+        translationY = mRefreshShowTranslationY;
+      } else if (translationY < mRefreshHideTranslationY) {
+        translationY = mRefreshHideTranslationY;
       }
       if (Math.abs(translationY) != mRefreshView.getTranslationY()) {
         mRefreshView.setTranslationY(translationY);
@@ -115,7 +120,7 @@ public class HeaderZoomListView extends ListView {
   }
 
   private void refreshRest() {
-    ValueAnimator animator = ValueAnimator.ofFloat(mRefreshView.getTranslationY(), -mRefreshTranslationY);
+    ValueAnimator animator = ValueAnimator.ofFloat(mRefreshView.getTranslationY(), mRefreshHideTranslationY);
     animator.setStartDelay(60);
     animator.setDuration(300).start();
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

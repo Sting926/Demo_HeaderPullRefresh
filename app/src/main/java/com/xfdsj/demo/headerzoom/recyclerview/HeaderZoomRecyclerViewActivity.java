@@ -45,7 +45,7 @@ public class HeaderZoomRecyclerViewActivity extends AppCompatActivity {
 
           //模拟组装10个数据
           ArrayList<ItemModel> newList = new ArrayList<>();
-          for (int i = 0; i < 2; i++) {
+          for (int i = 0; i < 10; i++) {
             if (newList.size() + currentSize >= TOTAL_COUNTER) {
               break;
             }
