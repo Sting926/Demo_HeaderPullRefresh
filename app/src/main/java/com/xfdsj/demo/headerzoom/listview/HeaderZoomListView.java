@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.ListView;
+import com.xfdsj.demo.R;
 
 /**
  * Created by Mr Jian on 2018/4/2.
@@ -16,7 +17,7 @@ import android.widget.ListView;
 
 public class HeaderZoomListView extends ListView {
 
-  private ImageView mHeaderView; // 头图
+  private View mHeaderView; // 头图
   private int mHeaderViewHeight; // 头图高度
   private ImageView mRefreshView; // 旋转刷新的图片
   private float mRefreshHideTranslationY; // 刷新图片上移的最大距离
@@ -33,6 +34,7 @@ public class HeaderZoomListView extends ListView {
       this.mHeaderViewHeight = mHeaderView.getHeight();// 获取图片原始高度
       mRefreshHideTranslationY = -mRefreshView.getHeight() - 20;
       mRefreshShowTranslationY = mRefreshView.getHeight();
+      mHeaderView.findViewById(R.id.iv_header).setTranslationY(-100);
       mRefreshView.setTranslationY(mRefreshHideTranslationY);
     }
   }
@@ -60,7 +62,7 @@ public class HeaderZoomListView extends ListView {
    * 下拉后往上推 需要ImageView变小
    */
   @Override protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-    View header = (View) mHeaderView.getParent();
+    View header = mHeaderView;
     int top = header.getTop();//header 滑动到屏幕上方的距离
     int height = mHeaderView.getHeight();
     if (top < 0 && height + top > mHeaderViewHeight) {
@@ -145,7 +147,7 @@ public class HeaderZoomListView extends ListView {
     }
   }
 
-  public void setHeaderView(ImageView iv) {
+  public void setHeaderView(View iv) {
     mHeaderView = iv;
   }
 

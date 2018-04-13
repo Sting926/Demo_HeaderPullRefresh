@@ -25,12 +25,12 @@ public class HeaderZoomListViewActivity extends AppCompatActivity {
         "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111",
         ".........."
     });
-    View header = getLayoutInflater().inflate(R.layout.listview_header, null);
+    View header = getLayoutInflater().inflate(R.layout.zoom_header, null);
     headerImg = header.findViewById(R.id.iv_header);
     refreshImg = header.findViewById(R.id.iv_refresh);
     lv.addHeaderView(header);
     lv.setHeaderDividersEnabled(false);
-    lv.setHeaderView(headerImg);
+    lv.setHeaderView(header);
     lv.setRefreshView(refreshImg);
     lv.setAdapter(adapter);
   }

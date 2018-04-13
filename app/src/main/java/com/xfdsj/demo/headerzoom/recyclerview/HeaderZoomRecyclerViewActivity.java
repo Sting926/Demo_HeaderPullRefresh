@@ -99,7 +99,7 @@ public class HeaderZoomRecyclerViewActivity extends AppCompatActivity {
     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
 
     //add a HeaderView
-    //final View header = LayoutInflater.from(this).inflate(R.layout.listview_header, null);
+    //final View header = LayoutInflater.from(this).inflate(R.layout.zoom_header, null);
     //mLRecyclerViewAdapter.addHeaderView(header);
 
     //mRecyclerView.setPullRefreshEnabled(false);

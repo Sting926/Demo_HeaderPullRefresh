@@ -48,7 +48,7 @@ public class ZoomRefreshHeader extends FrameLayout implements IRefreshHeader {
     lp.setMargins(0, 0, 0, 0);
     this.setLayoutParams(lp);
     this.setPadding(0, 0, 0, 0);
-    inflate(getContext(), R.layout.listview_header, this);
+    inflate(getContext(), R.layout.zoom_header, this);
     mHeaderView = findViewById(R.id.iv_header);
     mRefreshView = findViewById(R.id.iv_refresh);
     measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
