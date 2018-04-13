@@ -289,7 +289,6 @@ public class HeaderZoomRecyclerView extends RecyclerView {
       case MotionEvent.ACTION_UP:
         if (isOnTop() && mPullRefreshEnabled && !mRefreshing/*&& appbarState == AppBarStateChangeListener.State.EXPANDED*/) {
           if (mRefreshHeader != null && mRefreshHeader.onRelease()) {
-            Log.e("onTouchEvent", "ACTION_UP: isOnTop");
             if (mRefreshListener != null) {
               mRefreshing = true;
               mFootView.setVisibility(GONE);
