@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import static android.view.View.OVER_SCROLL_NEVER;
 
-public class HeaderZoomRecyclerViewActivity extends AppCompatActivity {
+public class QzoneHeaderRecyclerViewActivity extends AppCompatActivity {
 
   private static final String TAG = "HeaderZoom";
 
@@ -88,7 +88,7 @@ public class HeaderZoomRecyclerViewActivity extends AppCompatActivity {
     setContentView(mRecyclerView);
 
     mRecyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
-    mRecyclerView.setRefreshHeader(new ZoomRefreshHeader(this));
+    mRecyclerView.setRefreshHeader(new QzoneRefreshHeader(this));
 
     mDataAdapter = new DataAdapter(R.layout.sample_item_text, new ArrayList<ItemModel>());
     mLRecyclerViewAdapter = new LRecyclerViewAdapter(mDataAdapter);

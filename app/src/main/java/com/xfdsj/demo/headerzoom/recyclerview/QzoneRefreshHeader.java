@@ -16,7 +16,7 @@ import com.github.jdsjlzx.interfaces.IRefreshHeader;
 import com.github.jdsjlzx.util.WeakHandler;
 import com.xfdsj.demo.R;
 
-public class ZoomRefreshHeader extends FrameLayout implements IRefreshHeader {
+public class QzoneRefreshHeader extends FrameLayout implements IRefreshHeader {
 
   private ImageView mHeaderView; // 头图
   private int mHeaderViewHeight; // 头图高度
@@ -29,7 +29,7 @@ public class ZoomRefreshHeader extends FrameLayout implements IRefreshHeader {
 
   private WeakHandler mHandler = new WeakHandler();
 
-  public ZoomRefreshHeader(Context context) {
+  public QzoneRefreshHeader(Context context) {
     super(context);
     initView();
   }
@@ -38,7 +38,7 @@ public class ZoomRefreshHeader extends FrameLayout implements IRefreshHeader {
    * @param context
    * @param attrs
    */
-  public ZoomRefreshHeader(Context context, AttributeSet attrs) {
+  public QzoneRefreshHeader(Context context, AttributeSet attrs) {
     super(context, attrs);
     initView();
   }

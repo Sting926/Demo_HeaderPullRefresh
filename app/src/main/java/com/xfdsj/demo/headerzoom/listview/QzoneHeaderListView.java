@@ -14,7 +14,7 @@ import android.widget.ListView;
  * Created by Mr Jian on 2018/4/2.
  */
 
-public class HeaderZoomListView extends ListView {
+public class QzoneHeaderListView extends ListView {
 
   private View mHeaderView; // 头图
   private int mHeaderViewHeight; // 头图高度
@@ -23,11 +23,11 @@ public class HeaderZoomListView extends ListView {
   private float mRefreshShowTranslationY; // 刷新图片下拉的最大移动距离
   private float mRotateAngle; // 旋转角度
 
-  public HeaderZoomListView(Context context) {
+  public QzoneHeaderListView(Context context) {
     this(context, null);
   }
 
-  public HeaderZoomListView(Context context, AttributeSet attrs) {
+  public QzoneHeaderListView(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
 

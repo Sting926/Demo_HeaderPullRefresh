@@ -23,8 +23,12 @@ public class MomentsHeaderListViewActivity extends AppCompatActivity {
     lv.setOverScrollMode(OVER_SCROLL_NEVER);
 
     ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[] {
+        "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111",
+        "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111",
+        "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111", "111111111111111",
         ".........."
     });
+
     //头部拉伸 朋友圈
     View header = getLayoutInflater().inflate(R.layout.moments_header, null);
     refreshImg = header.findViewById(R.id.iv_refresh);

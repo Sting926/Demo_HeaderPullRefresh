@@ -10,15 +10,15 @@ import com.xfdsj.demo.R;
 
 import static android.view.View.OVER_SCROLL_NEVER;
 
-public class HeaderZoomListViewActivity extends AppCompatActivity {
+public class QzoneHeaderListViewActivity extends AppCompatActivity {
 
-  private HeaderZoomListView lv;
+  private QzoneHeaderListView lv;
   private ImageView headerImg;
   private ImageView refreshImg;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    lv = new HeaderZoomListView(this);
+    lv = new QzoneHeaderListView(this);
     setContentView(lv);
 
     lv.setOverScrollMode(OVER_SCROLL_NEVER);
