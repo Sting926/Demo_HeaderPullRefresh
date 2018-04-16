@@ -1,4 +1,4 @@
-package com.xfdsj.demo.headerzoom.listview;
+package com.xfdsj.demo.headerpullrefresh.listview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.widget.ListView;
  * Created by Mr Jian on 2018/4/2.
  */
 
-public class MomentsHeaderListView extends ListView {
+public class QzoneHeaderListView extends ListView {
 
   private View mHeaderView; // 头图
   private int mHeaderViewHeight; // 头图高度
@@ -23,11 +23,11 @@ public class MomentsHeaderListView extends ListView {
   private float mRefreshShowTranslationY; // 刷新图片下拉的最大移动距离
   private float mRotateAngle; // 旋转角度
 
-  public MomentsHeaderListView(Context context) {
+  public QzoneHeaderListView(Context context) {
     this(context, null);
   }
 
-  public MomentsHeaderListView(Context context, AttributeSet attrs) {
+  public QzoneHeaderListView(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
 
@@ -64,7 +64,8 @@ public class MomentsHeaderListView extends ListView {
    * 下拉后往上推 需要ImageView变小
    */
   @Override protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-    View header = mHeaderView;
+    View header = (View) mHeaderView.getParent();// QQ空间
+    //View header = mHeaderView; // 朋友圈
     int top = header.getTop();//header 滑动到屏幕上方的距离
     int height = mHeaderView.getHeight();
     if (top < 0 && height + top > mHeaderViewHeight) {

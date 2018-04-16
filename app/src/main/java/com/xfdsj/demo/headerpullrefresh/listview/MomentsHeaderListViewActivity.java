@@ -1,4 +1,4 @@
-package com.xfdsj.demo.headerzoom.listview;
+package com.xfdsj.demo.headerpullrefresh.listview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,15 +10,14 @@ import com.xfdsj.demo.R;
 
 import static android.view.View.OVER_SCROLL_NEVER;
 
-public class QzoneHeaderListViewActivity extends AppCompatActivity {
+public class MomentsHeaderListViewActivity extends AppCompatActivity {
 
-  private QzoneHeaderListView lv;
-  private ImageView headerImg;
+  private MomentsHeaderListView lv;
   private ImageView refreshImg;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    lv = new QzoneHeaderListView(this);
+    lv = new MomentsHeaderListView(this);
     setContentView(lv);
 
     lv.setOverScrollMode(OVER_SCROLL_NEVER);
@@ -30,13 +29,12 @@ public class QzoneHeaderListViewActivity extends AppCompatActivity {
         ".........."
     });
 
-    // 头部缩放  QQ空间
-    View header = getLayoutInflater().inflate(R.layout.qzone_header, null); //头部缩放 QQ空间
-    headerImg = header.findViewById(R.id.iv_header);
+    //头部拉伸 朋友圈
+    View header = getLayoutInflater().inflate(R.layout.moments_header, null);
     refreshImg = header.findViewById(R.id.iv_refresh);
     lv.addHeaderView(header);
     lv.setHeaderDividersEnabled(false);
-    lv.setHeaderView(headerImg); //头部缩放 QQ空间
+    lv.setHeaderView(header);
     lv.setRefreshView(refreshImg);
     lv.setAdapter(adapter);
   }

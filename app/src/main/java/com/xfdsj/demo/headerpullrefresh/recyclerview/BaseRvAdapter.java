@@ -1,4 +1,4 @@
-package com.xfdsj.demo.headerzoom.recyclerview;
+package com.xfdsj.demo.headerpullrefresh.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xfdsj.demo.headerzoom.MainActivity" android:orientation="vertical">
+    tools:context="com.xfdsj.demo.headerpullrefresh.MainActivity" android:orientation="vertical">
 
   <Button android:id="@+id/btn_qzone_listview" android:layout_width="match_parent" android:layout_height="wrap_content"
       android:text="ListView(QQ空间)" android:onClick="qzoneListViewClick"/>

@@ -1,4 +1,4 @@
-package com.xfdsj.demo.headerzoom.recyclerview;
+package com.xfdsj.demo.headerpullrefresh.recyclerview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -16,9 +16,11 @@ import com.github.jdsjlzx.interfaces.IRefreshHeader;
 import com.github.jdsjlzx.util.WeakHandler;
 import com.xfdsj.demo.R;
 
-public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader {
+public class QzoneRefreshHeader extends FrameLayout implements IRefreshHeader {
 
-  private int mHeaderViewHeight; // 头部高度
+  private ImageView mHeaderView; // 头图
+  private int mHeaderViewHeight; // 头图高度
+  private int mDeltaHeight; // 头图和头部布局的差值
   private ImageView mRefreshView; // 旋转刷新的图片
   private float mRefreshHideTranslationY; // 刷新图片上移的最大距离
   private float mRefreshShowTranslationY; // 刷新图片下拉的最大移动距离
@@ -27,7 +29,7 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
 
   private WeakHandler mHandler = new WeakHandler();
 
-  public MomentsRefreshHeader(Context context) {
+  public QzoneRefreshHeader(Context context) {
     super(context);
     initView();
   }
@@ -36,7 +38,7 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
    * @param context
    * @param attrs
    */
-  public MomentsRefreshHeader(Context context, AttributeSet attrs) {
+  public QzoneRefreshHeader(Context context, AttributeSet attrs) {
     super(context, attrs);
     initView();
   }
@@ -46,10 +48,12 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     lp.setMargins(0, 0, 0, 0);
     this.setLayoutParams(lp);
     this.setPadding(0, 0, 0, 0);
-    inflate(getContext(), R.layout.moments_header, this);
+    inflate(getContext(), R.layout.qzone_header, this);
+    mHeaderView = findViewById(R.id.iv_header);
     mRefreshView = findViewById(R.id.iv_refresh);
     measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    mHeaderViewHeight = getMeasuredHeight();
+    mHeaderViewHeight = mHeaderView.getMeasuredHeight();
+    mDeltaHeight = getMeasuredHeight() - mHeaderViewHeight;
     mRefreshHideTranslationY = -mRefreshView.getMeasuredHeight() - 20;
     mRefreshShowTranslationY = mRefreshView.getMeasuredHeight();
   }
@@ -84,13 +88,13 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
   }
 
   private int getHeaderViewHeight() {
-    return getHeight();
+    return mHeaderView.getHeight();
   }
 
   private void setHeaderViewHeight(int height) {
     if (height < mHeaderViewHeight) height = mHeaderViewHeight;
-    getLayoutParams().height = height;
-    requestLayout();
+    mHeaderView.getLayoutParams().height = height;
+    mHeaderView.requestLayout();
   }
 
   //垂直滑动时该方法不实现
@@ -118,7 +122,7 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
       setHeaderViewHeight(targetHeight);
       refreshTranslation(currentHeight, offSet);
     } else if (offSet > 0 && currentHeight > mHeaderViewHeight) {
-      layout(getLeft(), 0, getRight(), targetHeight); //重新布局让header显示在顶端，直到不再缩小图片
+      layout(getLeft(), 0, getRight(), targetHeight + mDeltaHeight); //重新布局让header显示在顶端，直到不再缩小图片
       setHeaderViewHeight(targetHeight);
       refreshTranslation(currentHeight, offSet);
       //forceStopRecyclerViewScroll((RecyclerView) getParent());// 停止recyclerview的滑动，防止快速上划松手后动画产生抖动
@@ -150,7 +154,7 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
 
   @Override public boolean onRelease() {
     boolean isOnRefresh = false;
-    int currentHeight = getLayoutParams().height;// 使用 mHeaderView.getLayoutParams().height 可以防止快速快速下拉的时候图片不回弹
+    int currentHeight = mHeaderView.getLayoutParams().height;// 使用 mHeaderView.getLayoutParams().height 可以防止快速快速下拉的时候图片不回弹
     if (currentHeight > mHeaderViewHeight) {
       if ((currentHeight - mHeaderViewHeight) / 2 > mRefreshShowTranslationY - mRefreshHideTranslationY && mState < STATE_REFRESHING) {
         setState(STATE_REFRESHING);
@@ -175,12 +179,12 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
   }
 
   private void headerRest() {
-    ValueAnimator animator = ValueAnimator.ofInt(getLayoutParams().height, mHeaderViewHeight);
+    ValueAnimator animator = ValueAnimator.ofInt(mHeaderView.getLayoutParams().height, mHeaderViewHeight);
     //animator.setStartDelay(60);
     animator.setDuration(300).start();
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override public void onAnimationUpdate(ValueAnimator animation) {
-        if (getLayoutParams().height == mHeaderViewHeight) { // 停止动画，防止快速上划松手后动画产生抖动
+        if (mHeaderView.getLayoutParams().height == mHeaderViewHeight) { // 停止动画，防止快速上划松手后动画产生抖动
           animation.cancel();
         } else {
           setHeaderViewHeight((Integer) animation.getAnimatedValue());
@@ -193,7 +197,7 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     HeaderResetAnimation animation = new HeaderResetAnimation();
     animation.setStartOffset(60);
     animation.setDuration(300);
-    startAnimation(animation);
+    mHeaderView.startAnimation(animation);
   }
 
   private void headerRest2() {

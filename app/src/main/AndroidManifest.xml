@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xfdsj.demo">
+    package="com.xfdsj.demo.headerpullrefresh">
 
   <application
       android:allowBackup="true"
@@ -8,17 +8,17 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".headerzoom.MainActivity">
+    <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".headerzoom.listview.QzoneHeaderListViewActivity" android:label="QzoneHeaderListView"/>
-    <activity android:name=".headerzoom.listview.MomentsHeaderListViewActivity" android:label="MomentsHeaderListView"/>
-    <activity android:name=".headerzoom.recyclerview.QzoneHeaderRecyclerViewActivity" android:label="QzoneHeaderRecyclerView"/>
-    <activity android:name=".headerzoom.recyclerview.MomentsHeaderRecyclerViewActivity" android:label="MomentsHeaderRecyclerView"/>
+    <activity android:name=".listview.QzoneHeaderListViewActivity" android:label="QzoneHeaderListView"/>
+    <activity android:name=".listview.MomentsHeaderListViewActivity" android:label="MomentsHeaderListView"/>
+    <activity android:name=".recyclerview.QzoneHeaderRecyclerViewActivity" android:label="QzoneHeaderRecyclerView"/>
+    <activity android:name=".recyclerview.MomentsHeaderRecyclerViewActivity" android:label="MomentsHeaderRecyclerView"/>
   </application>
 
 </manifest>

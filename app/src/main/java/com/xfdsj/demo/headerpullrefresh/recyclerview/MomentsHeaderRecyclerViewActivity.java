@@ -1,4 +1,4 @@
-package com.xfdsj.demo.headerzoom.recyclerview;
+package com.xfdsj.demo.headerpullrefresh.recyclerview;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -29,7 +29,7 @@ public class MomentsHeaderRecyclerViewActivity extends AppCompatActivity {
   /** 已经获取到多少条数据了 */
   private int mCurrentCounter = 0;
 
-  private HeaderZoomRecyclerView mRecyclerView = null;
+  private HeaderPullRefreshRecyclerView mRecyclerView = null;
 
   private DataAdapter mDataAdapter = null;
 
@@ -84,7 +84,7 @@ public class MomentsHeaderRecyclerViewActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     //requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏标题
     //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// 设置全屏
-    mRecyclerView = new HeaderZoomRecyclerView(this);
+    mRecyclerView = new HeaderPullRefreshRecyclerView(this);
     setContentView(mRecyclerView);
 
     mRecyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
@@ -133,7 +133,7 @@ public class MomentsHeaderRecyclerViewActivity extends AppCompatActivity {
       }
     });
 
-    mRecyclerView.setLScrollListener(new HeaderZoomRecyclerView.LScrollListener() {
+    mRecyclerView.setLScrollListener(new HeaderPullRefreshRecyclerView.LScrollListener() {
 
       @Override public void onScrollUp() {
       }

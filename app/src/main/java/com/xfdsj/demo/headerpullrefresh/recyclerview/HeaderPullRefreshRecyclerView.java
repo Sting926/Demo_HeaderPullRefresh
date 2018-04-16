@@ -1,4 +1,4 @@
-package com.xfdsj.demo.headerzoom.recyclerview;
+package com.xfdsj.demo.headerpullrefresh.recyclerview;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -28,7 +27,7 @@ import com.github.jdsjlzx.view.LoadingFooter;
 /**
  * Created by Mr Jian on 2018/4/2.
  */
-public class HeaderZoomRecyclerView extends RecyclerView {
+public class HeaderPullRefreshRecyclerView extends RecyclerView {
 
   /** * **/
 
@@ -106,15 +105,15 @@ public class HeaderZoomRecyclerView extends RecyclerView {
 
   private AppBarStateChangeListener.State appbarState = AppBarStateChangeListener.State.EXPANDED;
 
-  public HeaderZoomRecyclerView(Context context) {
+  public HeaderPullRefreshRecyclerView(Context context) {
     this(context, null);
   }
 
-  public HeaderZoomRecyclerView(Context context, AttributeSet attrs) {
+  public HeaderPullRefreshRecyclerView(Context context, AttributeSet attrs) {
     this(context, attrs, 0);
   }
 
-  public HeaderZoomRecyclerView(Context context, AttributeSet attrs, int defStyle) {
+  public HeaderPullRefreshRecyclerView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
     init();
   }
@@ -168,20 +167,20 @@ public class HeaderZoomRecyclerView extends RecyclerView {
           int count = lRecyclerViewAdapter.getInnerAdapter().getItemCount();
           if (count == 0) {
             mEmptyView.setVisibility(View.VISIBLE);
-            HeaderZoomRecyclerView.this.setVisibility(View.GONE);
+            HeaderPullRefreshRecyclerView.this.setVisibility(View.GONE);
           } else {
             mEmptyView.setVisibility(View.GONE);
-            HeaderZoomRecyclerView.this.setVisibility(View.VISIBLE);
+            HeaderPullRefreshRecyclerView.this.setVisibility(View.VISIBLE);
           }
         }
       } else {
         if (adapter != null && mEmptyView != null) {
           if (adapter.getItemCount() == 0) {
             mEmptyView.setVisibility(View.VISIBLE);
-            HeaderZoomRecyclerView.this.setVisibility(View.GONE);
+            HeaderPullRefreshRecyclerView.this.setVisibility(View.GONE);
           } else {
             mEmptyView.setVisibility(View.GONE);
-            HeaderZoomRecyclerView.this.setVisibility(View.VISIBLE);
+            HeaderPullRefreshRecyclerView.this.setVisibility(View.VISIBLE);
           }
         }
       }
