@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.xfdsj.demo.headerzoom.MainActivity" android:orientation="vertical">
 
-  <Button android:id="@+id/btn_listview" android:layout_width="match_parent" android:layout_height="wrap_content"
-      android:text="ListView" android:onClick="listViewClick"/>
-  <Button android:id="@+id/btn_recyclerview" android:layout_width="match_parent" android:layout_height="wrap_content"
-      android:text="RecyclerView" android:onClick="recyclerViewClick"/>
+  <Button android:id="@+id/btn_qzone_listview" android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:text="ListView(QQ空间)" android:onClick="qzoneListViewClick"/>
+  <Button android:id="@+id/btn_moments_listview" android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:text="ListView(微信朋友圈)" android:onClick="momentsListViewClick"/>
+
+  <Button android:id="@+id/btn_qzone_recyclerview" android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:text="RecyclerView(QQ空间)" android:onClick="qzoneRecyclerViewClick"/>
+  <Button android:id="@+id/btn_moments_recyclerview" android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:text="RecyclerView(微信朋友圈)" android:onClick="momentsRecyclerViewClick"/>
 
 </LinearLayout>

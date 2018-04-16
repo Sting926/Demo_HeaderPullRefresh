@@ -15,10 +15,10 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".headerzoom.listview.HeaderZoomListViewActivity" android:label="HeaderZoomListView">
-    </activity>
-    <activity android:name=".headerzoom.recyclerview.HeaderZoomRecyclerViewActivity" android:label="HeaderZoomRecyclerView">
-    </activity>
+    <activity android:name=".headerzoom.listview.HeaderZoomListViewActivity" android:label="QzoneHeaderListView"/>
+    <activity android:name=".headerzoom.listview.MomentsHeaderListViewActivity" android:label="MomentsHeaderListView"/>
+    <activity android:name=".headerzoom.recyclerview.HeaderZoomRecyclerViewActivity" android:label="QzoneHeaderRecyclerView"/>
+    <activity android:name=".headerzoom.recyclerview.MomentsHeaderRecyclerViewActivity" android:label="MomentsHeaderRecyclerView"/>
   </application>
 
 </manifest>

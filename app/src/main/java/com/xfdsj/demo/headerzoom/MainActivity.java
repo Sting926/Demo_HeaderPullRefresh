@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import com.xfdsj.demo.R;
 import com.xfdsj.demo.headerzoom.listview.HeaderZoomListViewActivity;
+import com.xfdsj.demo.headerzoom.listview.MomentsHeaderListViewActivity;
 import com.xfdsj.demo.headerzoom.recyclerview.HeaderZoomRecyclerViewActivity;
+import com.xfdsj.demo.headerzoom.recyclerview.MomentsHeaderRecyclerViewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,11 +23,19 @@ public class MainActivity extends AppCompatActivity {
     findViewById(R.id.btn_recyclerview).startAnimation(rotateAnimation);*/
   }
 
-  public void listViewClick(View view) {
+  public void qzoneListViewClick(View view) {
     startActivity(new Intent(this, HeaderZoomListViewActivity.class));
   }
 
-  public void recyclerViewClick(View view) {
+  public void momentsListViewClick(View view) {
+    startActivity(new Intent(this, MomentsHeaderListViewActivity.class));
+  }
+
+  public void qzoneRecyclerViewClick(View view) {
     startActivity(new Intent(this, HeaderZoomRecyclerViewActivity.class));
+  }
+
+  public void momentsRecyclerViewClick(View view) {
+    startActivity(new Intent(this, MomentsHeaderRecyclerViewActivity.class));
   }
 }
