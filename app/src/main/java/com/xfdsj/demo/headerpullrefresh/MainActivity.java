@@ -5,22 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import com.xfdsj.demo.R;
-import com.xfdsj.demo.headerpullrefresh.listview.QzoneHeaderListViewActivity;
 import com.xfdsj.demo.headerpullrefresh.listview.MomentsHeaderListViewActivity;
-import com.xfdsj.demo.headerpullrefresh.recyclerview.QzoneHeaderRecyclerViewActivity;
+import com.xfdsj.demo.headerpullrefresh.listview.QzoneHeaderListViewActivity;
 import com.xfdsj.demo.headerpullrefresh.recyclerview.MomentsHeaderRecyclerViewActivity;
+import com.xfdsj.demo.headerpullrefresh.recyclerview.QzoneHeaderRecyclerViewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-/*    RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-    rotateAnimation.setDuration(3000);
-    rotateAnimation.setRepeatCount(-1);
-    findViewById(R.id.btn_recyclerview).startAnimation(rotateAnimation);*/
   }
 
   public void qzoneListViewClick(View view) {

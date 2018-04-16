@@ -1,7 +1,7 @@
 package com.xfdsj.demo.headerpullrefresh.recyclerview;
 
 import android.widget.TextView;
-import com.xfdsj.demo.R;
+import com.xfdsj.demo.headerpullrefresh.R;
 import java.util.List;
 
 /**

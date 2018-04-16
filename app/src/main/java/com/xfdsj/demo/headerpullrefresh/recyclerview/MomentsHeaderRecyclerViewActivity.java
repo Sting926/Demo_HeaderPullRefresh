@@ -11,7 +11,7 @@ import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.github.jdsjlzx.util.WeakHandler;
-import com.xfdsj.demo.R;
+import com.xfdsj.demo.headerpullrefresh.R;
 import java.util.ArrayList;
 
 import static android.view.View.OVER_SCROLL_NEVER;
@@ -54,7 +54,7 @@ public class MomentsHeaderRecyclerViewActivity extends AppCompatActivity {
 
             ItemModel item = new ItemModel();
             item.id = currentSize + i;
-            item.title = "item" + (item.id);
+            item.title = "朋友圈 " + (item.id);
 
             newList.add(item);
           }

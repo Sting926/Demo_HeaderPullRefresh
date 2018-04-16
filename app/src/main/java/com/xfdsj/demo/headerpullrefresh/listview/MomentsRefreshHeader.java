@@ -1,18 +1,13 @@
-package com.xfdsj.demo.headerpullrefresh.recyclerview;
+package com.xfdsj.demo.headerpullrefresh.listview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.os.SystemClock;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import com.github.jdsjlzx.interfaces.IRefreshHeader;
 import com.github.jdsjlzx.util.WeakHandler;
 import com.xfdsj.demo.headerpullrefresh.R;
 
@@ -42,8 +37,7 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
   }
 
   private void initView() {
-    LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-    lp.setMargins(0, 0, 0, 0);
+    AbsListView.LayoutParams lp = new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     this.setLayoutParams(lp);
     this.setPadding(0, 0, 0, 0);
     inflate(getContext(), R.layout.moments_header, this);
@@ -52,6 +46,16 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     mHeaderViewHeight = getMeasuredHeight();
     mRefreshHideTranslationY = -mRefreshView.getMeasuredHeight() - 20;
     mRefreshShowTranslationY = mRefreshView.getMeasuredHeight();
+  }
+
+  private int getHeaderViewHeight() {
+    return getHeight();
+  }
+
+  private void setHeaderViewHeight(int height) {
+    if (height < mHeaderViewHeight) height = mHeaderViewHeight;
+    getLayoutParams().height = height;
+    requestLayout();
   }
 
   public void setState(int state) {
@@ -67,67 +71,22 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     mState = state;
   }
 
-  @Override public void refreshComplete() {
-    mHandler.postDelayed(new Runnable() {
-      public void run() {
-        setState(STATE_DONE);
-      }
-    }, 200);
-  }
-
-  @Override public View getHeaderView() {
-    return this;
-  }
-
-  @Override public int getVisibleHeight() {
-    return getHeight();
-  }
-
-  private int getHeaderViewHeight() {
-    return getHeight();
-  }
-
-  private void setHeaderViewHeight(int height) {
-    if (height < mHeaderViewHeight) height = mHeaderViewHeight;
-    getLayoutParams().height = height;
-    requestLayout();
-  }
-
-  //垂直滑动时该方法不实现
-  @Override public int getVisibleWidth() {
-    return 0;
-  }
-
-  @Override public void onReset() {
-    setState(STATE_NORMAL);
-  }
-
-  @Override public void onPrepare() {
-    setState(STATE_RELEASE_TO_REFRESH);
-  }
-
   @Override public void onRefreshing() {
     setState(STATE_REFRESHING);
   }
 
-  @Override public void onMove(float offSet, float sumOffSet) {
-    int top = getTop();// 相对父容器recyclerview的顶部位置 负数表示向上划出父容器的距离
+  @Override public void onMove(float offSet) {
+    int top = getTop();// 相对父容器listview的顶部位置 负数表示向上划出父容器的距离
     int currentHeight = getHeaderViewHeight();
     int targetHeight = currentHeight - (int) offSet;
-    if (offSet < 0 && top == 0) {
+    if (offSet < 0 && top == 0) { // 向下拉
       setHeaderViewHeight(targetHeight);
-      refreshTranslation(currentHeight, offSet);
+      refreshTranslation(currentHeight, offSet); // 向上推
     } else if (offSet > 0 && currentHeight > mHeaderViewHeight) {
       layout(getLeft(), 0, getRight(), targetHeight); //重新布局让header显示在顶端，直到不再缩小图片
       setHeaderViewHeight(targetHeight);
       refreshTranslation(currentHeight, offSet);
-      //forceStopRecyclerViewScroll((RecyclerView) getParent());// 停止recyclerview的滑动，防止快速上划松手后动画产生抖动
     }
-  }
-
-  //强制停止RecyclerView滑动方法
-  public static void forceStopRecyclerViewScroll(RecyclerView recyclerView) {
-    recyclerView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_CANCEL, 0, 0, 0));
   }
 
   /**
@@ -164,8 +123,34 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     return isOnRefresh;
   }
 
+  @Override public void refreshComplete() {
+    mHandler.postDelayed(new Runnable() {
+      public void run() {
+        setState(STATE_DONE);
+      }
+    }, 200);
+  }
+
+  @Override public View getHeaderView() {
+    return this;
+  }
+
+  @Override public int getOffset() {
+    return getHeight() - mHeaderViewHeight;
+  }
+
+  private void refreshing() {
+    mHandler.postDelayed(new Runnable() {
+      @Override public void run() {
+        if (mState == STATE_REFRESHING) {
+          mRefreshView.setRotation(mRotateAngle += 8);
+          mHandler.post(this);
+        }
+      }
+    }, 50);
+  }
+
   public void reset() {
-    //headerRest();
     refreshRest();
     mHandler.postDelayed(new Runnable() {
       public void run() {
@@ -189,36 +174,6 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     });
   }
 
-  private void headerRest1() {
-    HeaderResetAnimation animation = new HeaderResetAnimation();
-    animation.setStartOffset(60);
-    animation.setDuration(300);
-    startAnimation(animation);
-  }
-
-  private void headerRest2() {
-    ValueAnimator animator = ValueAnimator.ofInt(getHeaderViewHeight(), mHeaderViewHeight);
-    animator.setDuration(300).start();
-    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-      @Override public void onAnimationUpdate(ValueAnimator animation) {
-        int currentHeight = getHeaderViewHeight();
-        int deltaHeight = currentHeight - mHeaderViewHeight;
-        setHeaderViewHeight((int) (currentHeight - deltaHeight * animation.getAnimatedFraction()));
-      }
-    });
-  }
-
-  private void refreshing() {
-    mHandler.postDelayed(new Runnable() {
-      @Override public void run() {
-        if (mState == STATE_REFRESHING) {
-          mRefreshView.setRotation(mRotateAngle += 8);
-          mHandler.post(this);
-        }
-      }
-    }, 50);
-  }
-
   private void refreshRest() {
     ValueAnimator animator = ValueAnimator.ofFloat(mRefreshView.getTranslationY(), mRefreshHideTranslationY);
     animator.setStartDelay(60);
@@ -232,18 +187,5 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
         }
       }
     });
-  }
-
-  /**
-   * 重置Header动画
-   */
-  public class HeaderResetAnimation extends Animation {
-
-    @Override protected void applyTransformation(float interpolatedTime, Transformation t) {
-      int currentHeight = getHeaderViewHeight();
-      int deltaHeight = currentHeight - mHeaderViewHeight;
-      setHeaderViewHeight((int) (currentHeight - deltaHeight * interpolatedTime));
-      super.applyTransformation(interpolatedTime, t);
-    }
   }
 }
