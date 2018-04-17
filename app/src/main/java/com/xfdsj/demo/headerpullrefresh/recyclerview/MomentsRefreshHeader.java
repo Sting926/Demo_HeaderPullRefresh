@@ -32,10 +32,6 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
     initView();
   }
 
-  /**
-   * @param context
-   * @param attrs
-   */
   public MomentsRefreshHeader(Context context, AttributeSet attrs) {
     super(context, attrs);
     initView();

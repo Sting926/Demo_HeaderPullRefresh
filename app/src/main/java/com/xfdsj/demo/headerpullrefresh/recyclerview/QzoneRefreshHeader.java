@@ -34,10 +34,6 @@ public class QzoneRefreshHeader extends FrameLayout implements IRefreshHeader {
     initView();
   }
 
-  /**
-   * @param context
-   * @param attrs
-   */
   public QzoneRefreshHeader(Context context, AttributeSet attrs) {
     super(context, attrs);
     initView();

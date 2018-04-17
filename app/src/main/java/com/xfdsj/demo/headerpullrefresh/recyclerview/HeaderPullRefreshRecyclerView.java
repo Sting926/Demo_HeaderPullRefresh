@@ -283,7 +283,6 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
             overScrollBy(0, (int) deltaY, 0, 0, 0, 0, 0, (int) sumOffSet, true);
           }
         }
-
         break;
       case MotionEvent.ACTION_UP:
         if (isOnTop() && mPullRefreshEnabled && !mRefreshing/*&& appbarState == AppBarStateChangeListener.State.EXPANDED*/) {
@@ -296,6 +295,7 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
           }
         }
         mActivePointerId = -1;
+        break;
     }
     return super.onTouchEvent(ev);
   }
