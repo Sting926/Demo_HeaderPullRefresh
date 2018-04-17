@@ -35,20 +35,20 @@ public class HeaderPullRefreshListView extends ListView {
   /**
    * 重写滑动过度回调方法
    *
-   * @param deltaY dy增量 正数是上拉 负数是下拉
+   * @param deltaY 正数是上拉 负数是下拉
    */
   @Override protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX,
       int maxOverScrollY, boolean isTouchEvent) {
     if (deltaY < 0 && isTouchEvent) { //下拉 ImageView进行放大效果
       mRefreshHeader.onMove(deltaY);
-    } else if (deltaY > 0 && isTouchEvent) { //上拉过度（ListView内容太少的时候） 减少ImageView大小
+    } else if (deltaY > 0 && isTouchEvent) { //上拉过度（ListView内容高度不足一屏） 减少ImageView大小
       mRefreshHeader.onMove(deltaY);
     }
     return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
   }
 
   /**
-   * 下拉后往上推 需要ImageView变小
+   * 下拉后往上推 需要ImageView变小（ListView内容高度大于一个屏幕）
    */
   @Override protected void onScrollChanged(int l, int t, int oldl, int oldt) {
     int top = mRefreshHeader.getHeaderView().getTop();//header 滑动到屏幕上方的距离
@@ -58,6 +58,9 @@ public class HeaderPullRefreshListView extends ListView {
     super.onScrollChanged(l, t, oldl, oldt);
   }
 
+  /**
+   * 释放手指后判断是否刷新
+   */
   @Override public boolean onTouchEvent(MotionEvent ev) {
     if (ev.getAction() == MotionEvent.ACTION_UP) {
       if (mRefreshHeader != null && mRefreshHeader.onRelease()) {
