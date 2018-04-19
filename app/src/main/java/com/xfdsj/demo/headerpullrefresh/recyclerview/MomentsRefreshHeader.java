@@ -76,11 +76,11 @@ public class MomentsRefreshHeader extends FrameLayout implements IRefreshHeader 
   }
 
   @Override public int getVisibleHeight() {
-    return getHeight();
+    return getHeight() - mHeaderViewHeight;
   }
 
   private int getHeaderViewHeight() {
-    return getHeight();
+    return getLayoutParams().height;
   }
 
   private void setHeaderViewHeight(int height) {

@@ -257,6 +257,11 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
   private int mActivePointerId;
 
   @Override public boolean onTouchEvent(MotionEvent ev) {
+    if (mLastY == -1) { // 如果adapter设置了setOnItemClickListener点击事件，则RecyclerView的ACTION_DOWN事件被拦截，这里通过这种方式获取起始坐标。
+      mLastY = ev.getY();
+      mActivePointerId = ev.getPointerId(0);
+      sumOffSet = 0;
+    }
     switch (ev.getActionMasked()) {
       case MotionEvent.ACTION_DOWN:
         mLastY = ev.getY();
@@ -275,7 +280,7 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
           mActivePointerId = ev.getPointerId(pointerIndex);
         }
         final int moveY = (int) ev.getY(pointerIndex);
-        final float deltaY = (mLastY - moveY);
+        final float deltaY = (mLastY - moveY) / DRAG_RATE;
         mLastY = moveY;
         sumOffSet += deltaY;
         if (isOnTop() && mPullRefreshEnabled && !mRefreshing && (appbarState == AppBarStateChangeListener.State.EXPANDED)) {
@@ -285,6 +290,8 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
         }
         break;
       case MotionEvent.ACTION_UP:
+        mLastY = -1; // reset
+        mActivePointerId = -1;
         if (isOnTop() && mPullRefreshEnabled && !mRefreshing/*&& appbarState == AppBarStateChangeListener.State.EXPANDED*/) {
           if (mRefreshHeader != null && mRefreshHeader.onRelease()) {
             if (mRefreshListener != null) {
@@ -294,7 +301,6 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
             }
           }
         }
-        mActivePointerId = -1;
         break;
     }
     return super.onTouchEvent(ev);
@@ -302,9 +308,7 @@ public class HeaderPullRefreshRecyclerView extends RecyclerView {
 
   @Override protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX,
       int maxOverScrollY, boolean isTouchEvent) {
-    if (deltaY < 0 && isTouchEvent) {
-      mRefreshHeader.onMove(deltaY, sumOffSet);
-    } else if (deltaY > 0 && isTouchEvent) {
+    if (deltaY != 0 && isTouchEvent) {
       mRefreshHeader.onMove(deltaY, sumOffSet);
     }
     return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);

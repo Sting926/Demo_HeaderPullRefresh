@@ -80,11 +80,11 @@ public class QzoneRefreshHeader extends FrameLayout implements IRefreshHeader {
   }
 
   @Override public int getVisibleHeight() {
-    return getHeight();
+    return getHeight() - (mHeaderViewHeight + mDeltaHeight);
   }
 
   private int getHeaderViewHeight() {
-    return mHeaderView.getHeight();
+    return mHeaderView.getLayoutParams().height;
   }
 
   private void setHeaderViewHeight(int height) {
